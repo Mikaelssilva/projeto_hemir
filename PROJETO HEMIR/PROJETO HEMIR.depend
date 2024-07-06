@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1720297642 source:c:\users\windows\documents\codigos em c\projeto hemir\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
