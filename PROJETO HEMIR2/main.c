@@ -1,3 +1,4 @@
+// Adicionei a função para gerar relatório
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -73,7 +74,8 @@ int main(void) {
         printf("PONTO ELETRONICO -- MENU PRINCIPAL:\n");
         printf("1. Registrar Usuario\n");
         printf("2. Registrar Horario\n");
-        printf("3. Sair\n");
+        printf("3. Regar relatorio\n"); // nova função do menu para gerar relatório
+        printf("4. Sair\n");
         scanf(" %c", &opcao);
 
         pArquivo_horario = fopen("Horario_de_entrada.txt", "a");
@@ -148,15 +150,30 @@ int main(void) {
                     }
                     if (encontrado == 0) {
                         printf("Nome ou senha incorretos\n");
+                        fclose(pArquivo_horario);
                     }
-                    fclose(pArquivo_horario);
-                    fclose(pArquivo_usuarios);
 
                 } else {
                     printf("Nenhum usuario registrado\n");
                 }
                 break;
+            // o relatório só é gerado quando vc digita sair no menu principal e depois clica em gerar relatório de novo.
             case '3':
+                pArquivo_horario = fopen("Horario_de_entrada.txt", "r");
+                if(pArquivo_horario ==  NULL){
+                    printf("Erro ao gerar relatorio.");
+                    exit(1);
+                }
+                char linha[256];
+                printf("\n--- Relatorio de Horario ---\n");
+                while (fgets(linha, sizeof(linha), pArquivo_horario) != NULL) {
+                    printf("%s", linha);
+                }
+                printf("-----------------------------\n");
+
+                fclose(pArquivo_horario);
+                break;
+            case '4':
                 exit(0);
                 break;
             default:
